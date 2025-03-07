@@ -72,8 +72,8 @@ mongoose
   })
   .then(() => {
     console.log('MongoDB connecté');
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+    // const PORT = process.env.PORT || 5000;
+    // app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
   })
   .catch((err) => console.error(err));
 
