@@ -34,7 +34,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `https://noohra-backend.vercel.app:${process.env.PORT || 5000}`,
+        url: 'http://localhost:5000',
+      },
+      {
+        url: 'https://noohra-backend.vercel.app',
       },
     ],
   },
@@ -52,6 +55,11 @@ app.use('/api/assessments', require('./routes/assessment'));
 app.use('/api/assessment-questions', require('./routes/assessmentQuestion'));
 app.use('/api/assessment-responses', require('./routes/assessmentResponse'));
 app.use('/api/assessment-results', require('./routes/assessmentResult'));
+
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 // Middleware centralisé de gestion des erreurs
 app.use(require('./middleware/errorHandler'));
