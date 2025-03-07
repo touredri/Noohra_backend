@@ -80,4 +80,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Démarrage du serveur en local
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+}
+
 module.exports = app;
