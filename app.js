@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 const express = require('express');
 var path = require('path');
@@ -33,7 +34,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 5000}`,
+        url: `https://noohra-backend.vercel.app:${process.env.PORT || 5000}`,
       },
     ],
   },
@@ -56,28 +57,32 @@ app.use('/api/assessment-results', require('./routes/assessmentResult'));
 app.use(require('./middleware/errorHandler'));
 
 // Connexion à MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('MongoDB connecté');
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // Gestion des erreurs
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // Fournir les détails de l'erreur en développement
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // Renvoyer la page d'erreur
   res.status(err.status || 500);
-  res.render('error');
+  res.status(err.status || 500).json({ message: err.message });
 });
 
 // Démarrage du serveur en local
