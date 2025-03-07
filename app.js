@@ -45,6 +45,10 @@ const swaggerOptions = {
   apis: ['./routes/*.js'],
 };
 
+app.use('/api-docs', (req, res, next) => {
+  res.setHeader('Content-Type', 'text/html');
+  next();
+});
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
