@@ -41,15 +41,28 @@ const swaggerOptions = {
       },
     ],
   },
-  // Chemin vers les fichiers contenant les annotations Swagger
   apis: ['./routes/*.js'],
 };
 
-// app.use('/api-docs', (req, res, next) => {
-//   res.setHeader('Content-Type', 'text/html');
-//   next();
-// });
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+if (process.env.VERCEL) {
+  // Routes pour rediriger les assets Swagger vers un CDN
+  app.get('/api-docs/swagger-ui.css', (req, res) => {
+    res.redirect(
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css'
+    );
+  });
+  app.get('/api-docs/swagger-ui-bundle.js', (req, res) => {
+    res.redirect(
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js'
+    );
+  });
+  app.get('/api-docs/swagger-ui-standalone-preset.js', (req, res) => {
+    res.redirect(
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js'
+    );
+  });
+}
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Définition des routes
@@ -70,14 +83,9 @@ app.use(require('./middleware/errorHandler'));
 
 // Connexion à MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connecté');
-    // const PORT = process.env.PORT || 5000;
-    // app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
   })
   .catch((err) => console.error(err));
 
