@@ -22,7 +22,7 @@ app.use(
     directives: {
       "default-src": ["'self'"],
       "script-src": ["'self'", "https://cdnjs.cloudflare.com"],
-      "style-src": ["'self'", "https://cdnjs.cloudflare.com"],
+      "style-src": ["'self'", "https://cdnjs.cloudflare.com", "'unsafe-inline'",],
     },
   })
 );
