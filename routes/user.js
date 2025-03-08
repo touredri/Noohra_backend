@@ -7,12 +7,12 @@ const userController = require('../controllers/userController');
  * @swagger
  * /users:
  *   get:
- *     summary: Obtenir tous les utilisateurs
+ *     summary: Get all users
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Liste des utilisateurs
+ *         description: List of users
  */
 router.get('/', auth, userController.getUsers);
 
@@ -20,7 +20,7 @@ router.get('/', auth, userController.getUsers);
  * @swagger
  * /users/{id}:
  *   get:
- *     summary: Obtenir un utilisateur par ID
+ *     summary: Get a user by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -31,7 +31,7 @@ router.get('/', auth, userController.getUsers);
  *           type: string
  *     responses:
  *       200:
- *         description: Utilisateur trouvé
+ *         description: User found
  */
 router.get('/:id', auth, userController.getUserById);
 
@@ -39,7 +39,7 @@ router.get('/:id', auth, userController.getUserById);
  * @swagger
  * /users/{id}:
  *   put:
- *     summary: Mettre à jour un utilisateur par ID
+ *     summary: Update a user by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -50,7 +50,7 @@ router.get('/:id', auth, userController.getUserById);
  *           type: string
  *     responses:
  *       200:
- *         description: Utilisateur mis à jour
+ *         description: User updated
  */
 router.put('/:id', auth, userController.updateUser);
 
@@ -58,7 +58,7 @@ router.put('/:id', auth, userController.updateUser);
  * @swagger
  * /users/{id}:
  *   delete:
- *     summary: Supprimer un utilisateur par ID
+ *     summary: Delete a user by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -69,7 +69,7 @@ router.put('/:id', auth, userController.updateUser);
  *           type: string
  *     responses:
  *       200:
- *         description: Utilisateur supprimé
+ *         description: User deleted
  */
 router.delete('/:id', auth, userController.deleteUser);
 

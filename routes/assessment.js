@@ -7,7 +7,7 @@ const assessmentController = require('../controllers/assessmentController');
  * @swagger
  * /assessments:
  *   post:
- *     summary: Créer une nouvelle évaluation
+ *     summary: Create a new assessment
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -20,7 +20,7 @@ router.post('/', auth, assessmentController.createAssessment);
  * @swagger
  * /assessments:
  *   get:
- *     summary: Obtenir toutes les évaluations
+ *     summary: Get all assessments
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -33,7 +33,7 @@ router.get('/', auth, assessmentController.getAssessments);
  * @swagger
  * /assessments/{id}:
  *   get:
- *     summary: Obtenir une évaluation par ID
+ *     summary: Get an assessment by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -52,7 +52,7 @@ router.get('/:id', auth, assessmentController.getAssessmentById);
  * @swagger
  * /assessments/{id}:
  *   put:
- *     summary: Mettre à jour une évaluation par ID
+ *     summary: Update an assessment by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -71,7 +71,7 @@ router.put('/:id', auth, assessmentController.updateAssessment);
  * @swagger
  * /assessments/{id}:
  *   delete:
- *     summary: Supprimer une évaluation par ID
+ *     summary: Delete an assessment by ID
  *     security:
  *       - bearerAuth: []
  *     parameters:
