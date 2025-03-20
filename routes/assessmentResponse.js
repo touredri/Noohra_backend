@@ -12,24 +12,24 @@ const assessmentResponseController = require('../controllers/assessmentResponseC
  *       - bearerAuth: []
  *     requestBody:
  *       required: true
- *      content:
- *       application/json:
- *       schema:
- *       type: object
- *      properties:
- *       learner:
- *       type: string
- *      description: ID de l'apprenant
- *       question:
- *      	 type: string
- *    		 description: ID de la question
- *   		 response:
- *    		type: string
- *   			description: Résponse de l'apprenant
- * 			required:
- * 				- learner
- * 				- question
- * - response
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               learner:
+ *                 type: string
+ *                 description: ID de l'apprenant
+ *               question:
+ *                 type: string
+ *                 description: ID de la question
+ *               response:
+ *                 type: string
+ *                 description: Réponse de l'apprenant
+ *             required:
+ *               - learner
+ *               - question
+ *               - response
  *     responses:
  *       201:
  *         description: Réponse créée

@@ -23,6 +23,8 @@ const authController = require('../controllers/authController');
  *                 type: string
  *               userType:
  *                 type: string
+ *                 enum: ['Learner', 'Parent', 'Therapist']
+ *                 description: type of the user
  *     responses:
  *       201:
  *         description: Utilisateur enregistré
