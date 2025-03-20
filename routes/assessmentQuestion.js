@@ -10,6 +10,25 @@ const assessmentQuestionController = require('../controllers/assessmentQuestionC
  *     summary: Create a new assessment question
  *     security:
  *       - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *      content:
+ *      	application/json:
+ *    			schema:
+ *    				type: object
+ *    					properties:
+ *    						question:
+ *   								type: string
+ *  								description: Question
+ * 								options:
+ * 									type: array
+ * 								items:
+ * 									type: string
+ * 									description: Options de réponse
+ * 								correctAnswer:
+ * 									type: string
+ * 									description: Réponse correcte
+ * 								required: true
  *     responses:
  *       201:
  *         description: Question créée

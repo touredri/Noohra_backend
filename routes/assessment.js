@@ -10,6 +10,31 @@ const assessmentController = require('../controllers/assessmentController');
  *     summary: Create a new assessment
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *      content:
+ *       application/json:
+ *        schema:
+ *        type: object
+ *       properties:
+ *        learner:
+ *        type: string
+ *       description: ID de l'apprenant
+ *      assessmentDate:
+ *        type: string
+ *       description: Date de l'évaluation
+ *      completionStatus:
+ *        type: string
+ *       enum: ['Incomplete', 'Complete']
+ *      description: Statut de l'évaluation
+ *     totalScore:
+ *       type: number
+ *     description: Score total de l'évaluation
+ *    required:
+ *     - learner
+ *     - assessmentDate
+ *     - completionStatus
+ *     - totalScore
  *     responses:
  *       201:
  *         description: Évaluation créée

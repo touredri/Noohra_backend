@@ -10,6 +10,19 @@ const assessmentResultController = require('../controllers/assessmentResultContr
  *     summary: Create a new assessment result
  *     security:
  *       - bearerAuth: []
+ *    requestBody:
+ *    required: true
+ *     content:
+ *     application/json:
+ *      schema:
+ *      type: object
+ *     properties:
+ *      learner:
+ *      type: string
+ *     description: ID de l'apprenant
+ *     assessment:
+ *      type: string
+ *     description: ID de l'évaluation
  *     responses:
  *       201:
  *         description: Résultat créé
