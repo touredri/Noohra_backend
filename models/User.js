@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('userId').get(function() {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 

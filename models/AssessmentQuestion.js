@@ -11,7 +11,7 @@ const questionSchema = new mongoose.Schema({
 questionSchema.index({ assessment: 1, questionText: 1 }, { unique: true });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('assessmentQuestionId').get(function() {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 

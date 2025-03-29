@@ -15,7 +15,7 @@ const assessmentProgressSchema = new Schema({
 assessmentProgressSchema.index({ userId: 1, assessmentId: 1 }, { unique: true });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('assessmentProgressId').get(function() {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 

@@ -9,7 +9,7 @@ const responseSchema = new mongoose.Schema({
 });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('assessmentResponseId').get(function() {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 

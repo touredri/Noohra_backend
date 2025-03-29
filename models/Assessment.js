@@ -19,7 +19,7 @@ assessmentSchema.index({ learner: 1, assessmentDate: 1 }, { unique: true });
 // });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('assessmentId').get(function() {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 

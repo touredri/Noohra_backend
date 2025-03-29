@@ -14,7 +14,7 @@ const resultSchema = new mongoose.Schema({
 resultSchema.index({ assessment: 1, learner: 1 }, { unique: true });
 
 // Création d'une propriété virtuelle "assessmentResultId" qui renvoie la valeur de _id
-resultSchema.virtual('assessmentResultId').get(function() {
+resultSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 // Pour que la propriété virtuelle apparaisse dans les sorties JSON
