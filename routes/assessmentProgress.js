@@ -1,8 +1,7 @@
-// routes/assessment.js
 const express = require('express');
 const router = express.Router();
 const assessmentProgressController = require('../controllers/assessmentProgressController');
-const auth = require('../middlewares/auth');
+const auth = require('../middleware/auth');
 
 /**
  * @swagger
