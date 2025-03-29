@@ -19,11 +19,11 @@ assessmentSchema.index({ learner: 1, assessmentDate: 1 }, { unique: true });
 // });
 
 // Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
-userSchema.virtual('id').get(function() {
+assessmentSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
 // Pour que la propriété virtuelle apparaisse dans les sorties JSON
-userSchema.set('toJSON', { virtuals: true });
+assessmentSchema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Assessment', assessmentSchema);
