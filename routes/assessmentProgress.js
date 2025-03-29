@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
  * @swagger
  * /assessmentProgress:
  *   post:
- *     summary: Sauvegarder la progression d'un assessment
+ *     summary: save assessment progress
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -27,11 +27,11 @@ const auth = require('../middleware/auth');
  *                 type: number
  *     responses:
  *       200:
- *         description: Progression sauvegardée
+ *         description: Assessment progress saved successfully
  *       400:
- *         description: Erreur de validation
+ *         description: Bad request
  *       500:
- *         description: Erreur interne du serveur
+ *         description: Internal server error
  */
 router.post('/', auth, assessmentProgressController.saveAssessmentProgress);
 
