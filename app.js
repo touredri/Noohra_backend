@@ -82,6 +82,7 @@ app.use('/api/assessments', require('./routes/assessment'));
 app.use('/api/assessment-questions', require('./routes/assessmentQuestion'));
 app.use('/api/assessment-responses', require('./routes/assessmentResponse'));
 app.use('/api/assessment-results', require('./routes/assessmentResult'));
+app.use('/api/assessment-progress', require('./routes/assessmentProgress'));
 
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
