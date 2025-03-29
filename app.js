@@ -79,10 +79,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/assessments', require('./routes/assessment'));
-app.use('/api/assessment-questions', require('./routes/assessmentQuestion'));
-app.use('/api/assessment-responses', require('./routes/assessmentResponse'));
-app.use('/api/assessment-results', require('./routes/assessmentResult'));
-app.use('/api/assessment-progress', require('./routes/assessmentProgress'));
+app.use('/api/assessmentQuestions', require('./routes/assessmentQuestion'));
+app.use('/api/assessmentResponses', require('./routes/assessmentResponse'));
+app.use('/api/assessmentResults', require('./routes/assessmentResult'));
+app.use('/api/assessmentProgress', require('./routes/assessmentProgress'));
 
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');

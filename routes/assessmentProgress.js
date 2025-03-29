@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 /**
  * @swagger
- * /assessment/progress:
+ * /assessmentProgress:
  *   post:
  *     summary: Sauvegarder la progression d'un assessment
  *     security:
@@ -33,6 +33,6 @@ const auth = require('../middleware/auth');
  *       500:
  *         description: Erreur interne du serveur
  */
-router.post('/progress', auth, assessmentProgressController.saveAssessmentProgress);
+router.post('/', auth, assessmentProgressController.saveAssessmentProgress);
 
 module.exports = router;
