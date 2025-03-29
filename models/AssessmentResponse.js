@@ -8,4 +8,12 @@ const responseSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
+// Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
+userSchema.virtual('assessmentResponseId').get(function() {
+  return this._id.toHexString();
+});
+
+// Pour que la propriété virtuelle apparaisse dans les sorties JSON
+userSchema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('AssessmentResponse', responseSchema);

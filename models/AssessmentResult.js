@@ -10,4 +10,29 @@ const resultSchema = new mongoose.Schema({
   notes: { type: String }
 });
 
+// Index unique sur (assessment, learner)
+resultSchema.index({ assessment: 1, learner: 1 }, { unique: true });
+
+// Création d'une propriété virtuelle "assessmentResultId" qui renvoie la valeur de _id
+resultSchema.virtual('assessmentResultId').get(function() {
+  return this._id.toHexString();
+});
+// Pour que la propriété virtuelle apparaisse dans les sorties JSON
+resultSchema.set('toJSON', { virtuals: true });
+// Middleware pour mettre à jour le champ overallScore avant de sauvegarder
+resultSchema.pre('save', function(next) {
+  if (this.isModified('categoryScores')) {
+    const scores = Object.values(this.categoryScores);
+    this.overallScore = scores.reduce((acc, score) => acc + score, 0) / scores.length;
+  }
+  next();
+});
+// Middleware pour mettre à jour le champ dateGenerated avant de sauvegarder
+resultSchema.pre('save', function(next) {
+  if (this.isModified('dateGenerated')) {
+    this.dateGenerated = new Date();
+  }
+  next();
+});
+
 module.exports = mongoose.model('AssessmentResult', resultSchema);
