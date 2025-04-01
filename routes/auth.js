@@ -27,13 +27,13 @@ const authController = require('../controllers/authController');
  *                 description: type of the user
  *     responses:
  *       201:
- *         description: Utilisateur enregistré
+ *         description: User registered successfully
  */
 router.post(
   '/register',
   [
-    check('name', 'Le nom est requis').not().isEmpty(),
-    check('email', 'Email valide requis').isEmail(),
+    check('name', 'Name is required').not().isEmpty(),
+    check('email', 'valid email required').isEmail(),
     check(
       'password',
       'Le mot de passe doit contenir au moins 6 caractères'
@@ -61,7 +61,7 @@ router.post(
  *                 type: string
  *     responses:
  *       200:
- *         description: Utilisateur connecté
+ *         description: User logged in successfully
  */
 router.post(
   '/login',
