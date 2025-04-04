@@ -33,6 +33,19 @@ exports.getResponses = async (req, res) => {
   }
 };
 
+// Get responses by assessment ID
+exports.getResponsesByAssessmentId = async (req, res) => {
+  try {
+    const responses = await AssessmentResponse.find({
+      assessment: req.params.assessmentId,
+    });
+    res.json(responses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
 // Obtenir une réponse par ID
 exports.getResponseById = async (req, res) => {
   try {

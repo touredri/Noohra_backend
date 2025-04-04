@@ -19,7 +19,7 @@ const assessmentController = require('../controllers/assessmentController');
  *             properties:
  *               learner:
  *                 type: string
- *                 description: ID de l'apprenant
+ *                 description: Learner id
  *               assessmentDate:
  *                 type: string
  *                 description: Date de l'évaluation
@@ -33,8 +33,6 @@ const assessmentController = require('../controllers/assessmentController');
  *             required:
  *               - learner
  *               - assessmentDate
- *               - completionStatus
- *               - totalScore
  *     responses:
  *       201:
  *         description: Évaluation créée

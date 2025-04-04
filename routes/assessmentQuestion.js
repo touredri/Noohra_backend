@@ -78,6 +78,26 @@ router.get('/', auth, assessmentQuestionController.getQuestions);
  */
 router.get('/:id', auth, assessmentQuestionController.getQuestionById);
 
+// get questions by assessment type
+/**
+ * @swagger
+ * /assessmentQuestions/assessmentType/{AssessmentType}:
+ *   get:
+ *     summary: Get assessment questions by assessment type
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: AssessmentType
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Liste des questions par type d'évaluation
+ */
+router.get('/assessmentType/:AssessmentType', auth, assessmentQuestionController.getQuestionsByAssessmentType);
+
 /**
  * @swagger
  * /assessmentQuestions/{id}:
