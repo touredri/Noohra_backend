@@ -4,6 +4,28 @@ const Assessment = require('../models/Assessment');
 exports.createAssessment = async (req, res) => {
   const { learner, assessmentDate, completionStatus, totalScore } = req.body;
   try {
+    // get the userType from the token
+    const userType = req.user.userType;
+    // Check if the userType is 'Parent' or 'Therapist'
+    if (userType !== 'Parent' && userType !== 'Therapist') {
+      return res.status(403).json({ msg: 'Accès refusé' });
+    }
+    // Vérification de l'existence de l'apprenant
+    const learnerExists = await Assessment.findById(learner);
+    if (!learnerExists) {
+      return res.status(404).json({ msg: 'Apprenant non trouvé' });
+    }
+    // Vérification de l'existence de l'évaluation
+    const assessmentExists = await Assessment.findOne({ learner, assessmentDate });
+    if (assessmentExists) {
+      return res.status(400).json({ msg: 'Évaluation déjà existante' });
+    }
+    // Création de l'évaluation
+    // Si le statut de complétion n'est pas fourni, le définir sur 'Incomplete'
+    const completionStatus = completionStatus || 'Incomplete';
+    // Si le score total n'est pas fourni, le définir sur 0
+    const totalScore = totalScore || 0;
+    // Créer une nouvelle évaluation
     const newAssessment = new Assessment({
       learner,
       assessmentDate: assessmentDate || Date.now(),

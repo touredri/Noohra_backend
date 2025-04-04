@@ -38,9 +38,9 @@ router.post(
     check('email', 'valid email required').isEmail(),
     check(
       'password',
-      'Le mot de passe doit contenir au moins 6 caractères'
+      'password must be at least 6 characters long'
     ).isLength({ min: 6 }),
-    check('userType', "Type d'utilisateur requis").not().isEmpty(),
+    check('userType', "userType is required").not().isEmpty(),
   ],
   authController.register
 );
