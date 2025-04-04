@@ -15,7 +15,9 @@ const authController = require('../controllers/authController');
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               firstName:
+ *                 type: string
+ *               lastName:
  *                 type: string
  *               email:
  *                 type: string
@@ -32,7 +34,7 @@ const authController = require('../controllers/authController');
 router.post(
   '/register',
   [
-    check('name', 'Name is required').not().isEmpty(),
+    check('firstName', 'firstName is required').not().isEmpty(),
     check('email', 'valid email required').isEmail(),
     check(
       'password',

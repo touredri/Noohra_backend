@@ -29,6 +29,8 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const {
     name,
+    firstName,
+    lastName,
     email,
     userType,
     age,
@@ -48,7 +50,14 @@ exports.updateUser = async (req, res) => {
       return res.status(404).json({ msg: 'Utilisateur non trouvé' });
     }
     // Mise à jour des champs communs
-    if (name) user.name = name;
+    // if (name) user.name = name;
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (profilePicture) user.profilePicture = profilePicture;
+    if (dateOfBirth) user.dateOfBirth = dateOfBirth;
+    if (address) user.address = address;
+    if (phone) user.phone = phone;
+    if (emergencyContact) user.emergencyContact = emergencyContact;
     if (email) user.email = email;
     if (userType) user.userType = userType;
 

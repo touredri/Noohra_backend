@@ -10,7 +10,7 @@ exports.register = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   
-  const { name, email, password, userType, age, gender, diagnosis, parentReference, phone, associatedLearners, qualification, licenseNumber, specialization } = req.body;
+  const { firstName, lastName, email, password, userType, age, gender, diagnosis, parentReference, phone, associatedLearners, qualification, licenseNumber, specialization } = req.body;
   
   try {
     let user = await User.findOne({ email });
@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
       return res.status(400).json({ msg: 'User already exist' });
     }
     
-    user = new User({ name, email, password, userType });
+    user = new User({ firstName, lastName, email, password, userType });
     
     // Ajout des champs en fonction du type d'utilisateur
     if (userType === 'Learner') {
