@@ -9,17 +9,32 @@ exports.register = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
-  const { firstName, lastName, email, password, userType, age, gender, diagnosis, parentReference, phone, associatedLearners, qualification, licenseNumber, specialization } = req.body;
-  
+
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    userType,
+    age,
+    gender,
+    diagnosis,
+    parentReference,
+    phone,
+    associatedLearners,
+    qualification,
+    licenseNumber,
+    specialization,
+  } = req.body;
+
   try {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exist' });
     }
-    
+
     user = new User({ firstName, lastName, email, password, userType });
-    
+
     // Ajout des champs en fonction du type d'utilisateur
     if (userType === 'Learner') {
       user.age = age;
@@ -35,20 +50,24 @@ exports.register = async (req, res) => {
       user.specialization = specialization;
       user.therapistLearners = associatedLearners;
     }
-    
+
     // Hashage du mot de passe
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
-    
+
     await user.save();
-    
+
     // Génération du token JWT
     const payload = { user: { id: user.id, userType: user.userType } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
-      res.json({ token });
-    });
-    
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Erreur serveur');
@@ -57,28 +76,32 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  
+
   try {
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ msg: 'Identifiants invalides' });
     }
-    
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: 'Identifiants invalides' });
     }
-    
+
     // Mise à jour de la dernière connexion
     user.lastLogin = Date.now();
     await user.save();
-    
+
     const payload = { user: { id: user.id, userType: user.userType } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
-      res.json({ token });
-    });
-    
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token, user });
+      }
+    );
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Erreur serveur');
