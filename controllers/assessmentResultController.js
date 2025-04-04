@@ -2,7 +2,14 @@ const AssessmentResult = require('../models/AssessmentResult');
 
 // Créer un nouveau résultat d'évaluation
 exports.createResult = async (req, res) => {
-  const { assessment, learner, overallScore, categoryScores, recommendedActivities, notes } = req.body;
+  const {
+    assessment,
+    learner,
+    overallScore,
+    categoryScores,
+    recommendedActivities,
+    notes,
+  } = req.body;
   try {
     const newResult = new AssessmentResult({
       assessment,
@@ -11,13 +18,13 @@ exports.createResult = async (req, res) => {
       categoryScores,
       recommendedActivities,
       notes,
-      dateGenerated: Date.now()
+      dateGenerated: Date.now(),
     });
     const savedResult = await newResult.save();
     res.status(201).json(savedResult);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -28,7 +35,7 @@ exports.getResults = async (req, res) => {
     res.json(results);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -42,13 +49,20 @@ exports.getResultById = async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
 // Mettre à jour un résultat par ID
 exports.updateResult = async (req, res) => {
-  const { assessment, learner, overallScore, categoryScores, recommendedActivities, notes } = req.body;
+  const {
+    assessment,
+    learner,
+    overallScore,
+    categoryScores,
+    recommendedActivities,
+    notes,
+  } = req.body;
   try {
     let result = await AssessmentResult.findById(req.params.id);
     if (!result) {
@@ -58,7 +72,8 @@ exports.updateResult = async (req, res) => {
     if (learner) result.learner = learner;
     if (overallScore !== undefined) result.overallScore = overallScore;
     if (categoryScores) result.categoryScores = categoryScores;
-    if (recommendedActivities) result.recommendedActivities = recommendedActivities;
+    if (recommendedActivities)
+      result.recommendedActivities = recommendedActivities;
     if (notes) result.notes = notes;
     // Optionnel : mise à jour de la date de génération
     result.dateGenerated = Date.now();
@@ -66,7 +81,7 @@ exports.updateResult = async (req, res) => {
     res.json(updatedResult);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -80,6 +95,6 @@ exports.deleteResult = async (req, res) => {
     res.json({ msg: 'Résultat supprimé' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };

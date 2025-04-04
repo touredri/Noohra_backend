@@ -8,7 +8,7 @@ const responseSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-// Création d'une propriété virtuelle "userId" qui renvoie la valeur de _id
+// Création d'une propriété virtuelle "id" qui renvoie la valeur de _id
 responseSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });

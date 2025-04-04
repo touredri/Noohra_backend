@@ -7,7 +7,7 @@ exports.getUsers = async (req, res) => {
     res.json(users);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -21,7 +21,7 @@ exports.getUserById = async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -41,7 +41,7 @@ exports.updateUser = async (req, res) => {
     associatedLearners,
     qualification,
     licenseNumber,
-    specialization
+    specialization,
   } = req.body;
 
   try {
@@ -81,7 +81,7 @@ exports.updateUser = async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -95,6 +95,6 @@ exports.deleteUser = async (req, res) => {
     res.json({ msg: 'Utilisateur supprimé' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };

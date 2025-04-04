@@ -4,7 +4,7 @@ module.exports = (err, req, res, next) => {
 
   // Préparer la réponse en fonction de l'environnement
   const response = {
-    message: err.message || 'Erreur serveur'
+    message: err.message || 'Server error',
   };
 
   // En environnement de développement, inclure la stack de l'erreur

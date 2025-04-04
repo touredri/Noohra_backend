@@ -8,15 +8,18 @@ exports.createAssessment = async (req, res) => {
     const userType = req.user.userType;
     // Check if the userType is 'Parent' or 'Therapist'
     if (userType !== 'Parent' && userType !== 'Therapist') {
-      return res.status(403).json({ msg: 'Accès refusé' });
+      return res.status(403).json({ msg: 'Access denied' });
     }
     // Vérification de l'existence de l'apprenant
     const learnerExists = await Assessment.findById(learner);
     if (!learnerExists) {
-      return res.status(404).json({ msg: 'Apprenant non trouvé' });
+      return res.status(404).json({ msg: 'Learner not exist' });
     }
     // Vérification de l'existence de l'évaluation
-    const assessmentExists = await Assessment.findOne({ learner, assessmentDate });
+    const assessmentExists = await Assessment.findOne({
+      learner,
+      assessmentDate,
+    });
     if (assessmentExists) {
       return res.status(400).json({ msg: 'Évaluation déjà existante' });
     }
@@ -30,13 +33,13 @@ exports.createAssessment = async (req, res) => {
       learner,
       assessmentDate: assessmentDate || Date.now(),
       completionStatus,
-      totalScore
+      totalScore,
     });
     const assessment = await newAssessment.save();
     res.status(201).json(assessment);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -47,7 +50,7 @@ exports.getAssessments = async (req, res) => {
     res.json(assessments);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -61,7 +64,7 @@ exports.getAssessmentById = async (req, res) => {
     res.json(assessment);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -81,7 +84,7 @@ exports.updateAssessment = async (req, res) => {
     res.json(assessment);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -95,6 +98,6 @@ exports.deleteAssessment = async (req, res) => {
     res.json({ msg: 'Évaluation supprimée' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };

@@ -17,19 +17,23 @@ const assessmentResponseController = require('../controllers/assessmentResponseC
  *           schema:
  *             type: object
  *             properties:
+ *              assessment:
+ *                type: string
+ *                description: assessment id
  *               learner:
  *                 type: string
- *                 description: ID de l'apprenant
+ *                 description: learner id
  *               question:
  *                 type: string
- *                 description: ID de la question
- *               response:
+ *                 description: question id
+ *               responseValue:
  *                 type: string
- *                 description: Réponse de l'apprenant
+ *                 description: response value learner's response
  *             required:
+ *               - assessment
  *               - learner
  *               - question
- *               - response
+ *               - responseValue
  *     responses:
  *       201:
  *         description: Réponse créée

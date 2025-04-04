@@ -17,21 +17,29 @@ const assessmentQuestionController = require('../controllers/assessmentQuestionC
  *           schema:
  *             type: object
  *             properties:
- *               question:
+ *               AssessmentType:
  *                 type: string
- *                 description: Question
- *               options:
+ *                 enum: ['ASD', 'ADHD']
+ *                 description: Evaluation type
+ *               questionText:
+ *                 type: string
+ *                 description: Question text
+ *               questionType:
+ *                 type: string
+ *                 enum: ['multiple choice', 'text']
+ *                 description: Type de question
+ *               questionOptions:
  *                 type: array
  *                 items:
  *                   type: string
- *                   description: Options de réponse
- *               correctAnswer:
+ *                   description: Options de la question (required if questionType is 'multiple choice')
+ *               questionTextAnswer:
  *                 type: string
- *                 description: Réponse correcte
+ *                 description: Single question text
  *             required:
- *               - question
- *               - options
- *               - correctAnswer
+ *               - AssessmentType
+ *               - questionText
+ *               - questionType
  *     responses:
  *       201:
  *         description: Question créée

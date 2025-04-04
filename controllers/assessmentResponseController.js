@@ -9,13 +9,16 @@ exports.createResponse = async (req, res) => {
       question,
       learner,
       responseValue,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
     const savedResponse = await newResponse.save();
-    res.status(201).json(savedResponse);
+    res
+      .status(201)
+      .msg('Answer created successfully')
+      .json({ msg: 'Answer created successfully', response: savedResponse });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -26,7 +29,7 @@ exports.getResponses = async (req, res) => {
     res.json(responses);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -35,12 +38,12 @@ exports.getResponseById = async (req, res) => {
   try {
     const response = await AssessmentResponse.findById(req.params.id);
     if (!response) {
-      return res.status(404).json({ msg: 'Réponse non trouvée' });
+      return res.status(404).json({ msg: 'Answer not found' });
     }
     res.json(response);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
@@ -50,7 +53,7 @@ exports.updateResponse = async (req, res) => {
   try {
     let responseDoc = await AssessmentResponse.findById(req.params.id);
     if (!responseDoc) {
-      return res.status(404).json({ msg: 'Réponse non trouvée' });
+      return res.status(404).json({ msg: 'Answer not found' });
     }
     if (assessment) responseDoc.assessment = assessment;
     if (question) responseDoc.question = question;
@@ -62,20 +65,22 @@ exports.updateResponse = async (req, res) => {
     res.json(updatedResponse);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
 // Supprimer une réponse par ID
 exports.deleteResponse = async (req, res) => {
   try {
-    const responseDoc = await AssessmentResponse.findByIdAndDelete(req.params.id);
+    const responseDoc = await AssessmentResponse.findByIdAndDelete(
+      req.params.id
+    );
     if (!responseDoc) {
-      return res.status(404).json({ msg: 'Réponse non trouvée' });
+      return res.status(404).json({ msg: 'Answer not found' });
     }
     res.json({ msg: 'Réponse supprimée' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Erreur serveur' });
+    res.status(500).json({ msg: 'Server error' });
   }
 };
