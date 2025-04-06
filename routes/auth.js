@@ -57,11 +57,10 @@ router.post(
   [
     check('firstName', 'firstName is required').not().isEmpty(),
     check('email', 'valid email required').isEmail(),
-    check(
-      'password',
-      'password must be at least 6 characters long'
-    ).isLength({ min: 6 }),
-    check('userType', "userType is required").not().isEmpty(),
+    check('password', 'password must be at least 6 characters long').isLength({
+      min: 6,
+    }),
+    check('userType', 'userType is required').not().isEmpty(),
   ],
   authController.register
 );
@@ -82,9 +81,9 @@ router.post(
  *                 type: string
  *               password:
  *                 type: string
- *            required:
- *              - email
- *             - password
+ *             required:
+ *               - email
+ *               - password
  *     responses:
  *       200:
  *         description: User logged in successfully

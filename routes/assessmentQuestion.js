@@ -112,7 +112,7 @@ router.get('/:id', auth, assessmentQuestionController.getQuestionById);
  *     responses:
  *       200:
  *         description: Liste des questions par type d'évaluation
- *         404:
+ *       404:
  *         description: Aucune question trouvée pour cet âge
  */
 router.get(

@@ -17,7 +17,7 @@ const assessmentResponseController = require('../controllers/assessmentResponseC
  *           schema:
  *             type: object
  *             properties:
- *              assessment:
+ *               assessment:
  *                type: string
  *                description: assessment id
  *               learner:
