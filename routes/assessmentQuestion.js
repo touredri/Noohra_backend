@@ -28,6 +28,9 @@ const assessmentQuestionController = require('../controllers/assessmentQuestionC
  *                 type: string
  *                 enum: ['multiple choice', 'text']
  *                 description: Type de question
+ *               maxAge:
+ *                 type: number
+ *                 description: Maximum age for the question
  *               questionOptions:
  *                 type: array
  *                 items:
@@ -81,17 +84,28 @@ router.get('/:id', auth, assessmentQuestionController.getQuestionById);
 // get questions by assessment type
 /**
  * @swagger
- * /assessmentQuestions/assessmentType/{AssessmentType}:
+ * /assessmentQuestion:
  *   get:
- *     summary: Get assessment questions by assessment type
+ *     summary: Get assessment questions by assessment type & age
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: AssessmentType
- *         required: true
- *         schema:
- *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              assessmentType:
+ *                type: string
+ *                enum: ['ASD', 'ADHD']
+ *                description: Type d'évaluation
+ *              maxAge:
+ *                type: number
+ *                description: maximum age for the question
+ *            required:
+ *              - assessmentType
+ *              - maxAge
  *     responses:
  *       200:
  *         description: Liste des questions par type d'évaluation

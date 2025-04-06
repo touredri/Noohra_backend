@@ -5,6 +5,8 @@ const questionSchema = new mongoose.Schema({
   AssessmentType: { type: String, enum: ['ASD', 'ADHD'], required: true },
   questionText: { type: String, required: true },
   questionType: { type: String, enum: ['multiple choice', 'text'], required: true },
+  // max age
+  maxAge: { type: Number, required: true },
   questionOptions: {
     type: [String],
     required: function() {

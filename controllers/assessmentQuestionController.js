@@ -8,6 +8,7 @@ exports.createQuestion = async (req, res) => {
     questionType,
     questionOptions,
     questionTextAnswer,
+    maxAge,
   } = req.body;
   try {
     // get userType from the token
@@ -27,6 +28,7 @@ exports.createQuestion = async (req, res) => {
       questionType,
       questionOptions,
       questionTextAnswer,
+      maxAge,
     });
     const questionExists = await AssessmentQuestion.findOne({
       AssessmentType,
@@ -62,10 +64,21 @@ exports.getQuestions = async (req, res) => {
 
 // Obtenir toutes les questions par type d'évaluation
 exports.getQuestionsByAssessmentType = async (req, res) => {
+  const { assessmentType, maxAge } = req.body;
   try {
     const questions = await AssessmentQuestion.find({
-      AssessmentType: req.params.AssessmentType,
+      AssessmentType: assessmentType,
     });
+    // Filtrer les questions par maxAge
+    const filteredQuestions = questions.filter((question) => {
+      return question.maxAge >= maxAge;
+    });
+    // Si aucune question ne correspond, renvoyer un message
+    if (filteredQuestions.length === 0) {
+      return res.status(404).json({ msg: 'No questions found for this age' });
+    }
+    // Si des questions correspondent, renvoyer la liste
+    // des questions filtrées
     res.json(questions);
   } catch (err) {
     console.error(err);

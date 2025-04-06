@@ -80,12 +80,12 @@ exports.login = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: 'Identifiants invalides' });
+      return res.status(400).json({ msg: 'Invalid identifiers' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: 'Identifiants invalides' });
+      return res.status(400).json({ msg: 'Invalid identifiers' });
     }
 
     // Mise à jour de la dernière connexion
