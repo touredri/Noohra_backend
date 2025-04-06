@@ -36,16 +36,20 @@ const assessmentQuestionController = require('../controllers/assessmentQuestionC
  *                 items:
  *                   type: string
  *                   description: Options de la question (required if questionType is 'multiple choice')
- *               questionTextAnswer:
- *                 type: string
- *                 description: Single question text
+ *               questionAnswer:
+ *                 type: Dynamic
+ *                 description: question answer
  *             required:
  *               - AssessmentType
  *               - questionText
  *               - questionType
+ *               - maxAge
+ *               - questionAnswer
  *     responses:
  *       201:
- *         description: Question créée
+ *         description: Question created successfully
+ *       400:
+ *        description: Question already exists or invalid request
  */
 router.post('/', auth, assessmentQuestionController.createQuestion);
 
@@ -81,7 +85,6 @@ router.get('/', auth, assessmentQuestionController.getQuestions);
  */
 router.get('/:id', auth, assessmentQuestionController.getQuestionById);
 
-// get questions by assessment type
 /**
  * @swagger
  * /assessmentQuestion:
@@ -109,6 +112,8 @@ router.get('/:id', auth, assessmentQuestionController.getQuestionById);
  *     responses:
  *       200:
  *         description: Liste des questions par type d'évaluation
+ * *       404:
+ *         description: Aucune question trouvée pour cet âge
  */
 router.get('/assessmentType/:AssessmentType', auth, assessmentQuestionController.getQuestionsByAssessmentType);
 

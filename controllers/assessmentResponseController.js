@@ -1,3 +1,5 @@
+const Assessment = require('../models/Assessment');
+const AssessmentQuestion = require('../models/AssessmentQuestion');
 const AssessmentResponse = require('../models/AssessmentResponse');
 
 // Créer une nouvelle réponse
@@ -11,6 +13,35 @@ exports.createResponse = async (req, res) => {
       responseValue,
       timestamp: Date.now(),
     });
+    // get question by id
+    const questionDoc = AssessmentQuestion.findById(question);
+    if (!questionDoc) {
+      return res.status(404).json({ msg: 'Question not found' });
+    }
+    // get assessment by id
+    const assessmentDoc = Assessment.findById(assessment);
+    if (!assessmentDoc) {
+      return res.status(404).json({ msg: 'Assessment not found' });
+    }
+    // get learner by id
+    const learnerDoc = await Assessment.findById(learner);
+    if (!learnerDoc) {
+      return res.status(404).json({ msg: 'Learner not found' });
+    }
+    // Check if the response already exists
+    const existingResponse = await AssessmentResponse.findOne({
+      assessment,
+      question,
+      learner,
+    });
+    if (existingResponse) {
+      return res.status(400).json({ msg: 'Response already exists' });
+    }
+    // check if responseValue is equal to questionAnswer then update the assessment score
+    if (responseValue == question.questionAnswer) {
+      assessmentDoc.totalScore += 1;
+      await assessmentDoc.save();
+    }
     const savedResponse = await newResponse.save();
     res
       .status(201)

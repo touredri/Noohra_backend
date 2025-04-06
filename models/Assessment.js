@@ -4,7 +4,8 @@ const assessmentSchema = new mongoose.Schema({
   learner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   assessmentDate: { type: Date, default: Date.now },
   completionStatus: { type: String, enum: ['Incomplete', 'Complete'], default: 'Incomplete' },
-  totalScore: { type: Number, default: 0 }
+  totalScore: { type: Number, default: 0 },
+  level: { type: String, enum: ['Foundational', 'Grade 1', 'Grade 2–3', 'Grade 4–5', 'Grade 6'], default: 'Foundational' },
 });
 
 // Index unique sur (learner, assessmentDate)

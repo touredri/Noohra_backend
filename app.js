@@ -97,6 +97,24 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB connecté');
+    // added default admin user if not exist
+    const User = require('./models/User');
+    // Vérification de l'existence de l'utilisateur admin
+    User.findOne({ email: process.env.ADMIN_EMAIL })
+      .then((adminUser) => {
+        if (!adminUser) {
+          const admin = new User({
+            firstName: 'Admin',
+            lastName: 'Admin',
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
+            userType: 'Admin',
+          });
+          admin.save();
+          console.log('Admin user created');
+        }
+      })
+      .catch((err) => console.error(err));
   })
   .catch((err) => console.error(err));
 

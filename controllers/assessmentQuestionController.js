@@ -7,19 +7,17 @@ exports.createQuestion = async (req, res) => {
     questionText,
     questionType,
     questionOptions,
-    questionTextAnswer,
+    questionAnswer,
     maxAge,
   } = req.body;
   try {
     // get userType from the token
     const userType = req.user.userType;
     // check if the user is 'Therapist'
-    if (userType !== 'Therapist') {
-      return res
-        .status(403)
-        .json({
-          msg: 'Access denied !! you should be a therapist in order to add a question',
-        });
+    if (userType !== 'Therapist' || userType !== 'Admin') {
+      return res.status(403).json({
+        msg: 'Access denied !! you should be a therapist in order to add a question',
+      });
     }
     // Vérification de l'existence de la question
     const newQuestion = new AssessmentQuestion({
@@ -27,7 +25,7 @@ exports.createQuestion = async (req, res) => {
       questionText,
       questionType,
       questionOptions,
-      questionTextAnswer,
+      questionAnswer,
       maxAge,
     });
     const questionExists = await AssessmentQuestion.findOne({
@@ -120,11 +118,9 @@ exports.updateQuestion = async (req, res) => {
     const userType = req.user.userType;
     // check if the user is 'Therapist'
     if (userType !== 'Therapist') {
-      return res
-        .status(403)
-        .json({
-          msg: 'Access denied !! you should be a therapist in order to this action',
-        });
+      return res.status(403).json({
+        msg: 'Access denied !! you should be a therapist in order to this action',
+      });
     }
     let question = await AssessmentQuestion.findById(req.params.id);
     if (!question) {
@@ -148,11 +144,9 @@ exports.deleteQuestion = async (req, res) => {
     const userType = req.user.userType;
     // check if the user is 'Therapist'
     if (userType !== 'Therapist') {
-      return res
-        .status(403)
-        .json({
-          msg: 'Access denied !! you should be a therapist in order to this action',
-        });
+      return res.status(403).json({
+        msg: 'Access denied !! you should be a therapist in order to this action',
+      });
     }
     const question = await AssessmentQuestion.findByIdAndDelete(req.params.id);
     if (!question) {

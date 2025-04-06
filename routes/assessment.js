@@ -90,6 +90,39 @@ router.get('/:id', auth, assessmentController.getAssessmentById);
  */
 router.put('/:id', auth, assessmentController.updateAssessment);
 
+// update assessment completion status
+/**
+ * @swagger
+ * /assessments/{id}/completionStatus:
+ *   put:
+ *     summary: Update assessment completion status by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               completionStatus:
+ *                 type: string
+ *                 enum: ['Incomplete', 'Complete']
+ *                 description: Statut de l'évaluation
+ *             required:
+ *               - completionStatus
+ *     responses:
+ *       200:
+ *         description: Statut de l'évaluation mis à jour
+ */
+router.put('/:id/completionStatus', auth, assessmentController.updateAssessmentCompletionStatus);
+
 /**
  * @swagger
  * /assessments/{id}:

@@ -18,10 +18,9 @@ const userSchema = new mongoose.Schema({
     phone: { type: String },
   },
   // Authentification
-  // name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  userType: { type: String, enum: ['Learner', 'Parent', 'Therapist'], required: true },
+  userType: { type: String, enum: ['Learner', 'Parent', 'Therapist', 'Admin'], required: true },
   createdAt: { type: Date, default: Date.now },
   lastLogin: { type: Date },
 
