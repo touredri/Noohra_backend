@@ -35,7 +35,7 @@ const assessmentQuestionController = require('../controllers/assessmentQuestionC
  *                 type: array
  *                 items:
  *                   type: string
- *                   description: Options de la question 
+ *                   description: Options de la question
  *               questionAnswer:
  *                 type: Dynamic
  *                 description: question answer
@@ -115,7 +115,11 @@ router.get('/:id', auth, assessmentQuestionController.getQuestionById);
  *         404:
  *         description: Aucune question trouvée pour cet âge
  */
-router.get('/assessmentType/:AssessmentType', auth, assessmentQuestionController.getQuestionsByAssessmentType);
+router.get(
+  '/assessmentType/:AssessmentType',
+  auth,
+  assessmentQuestionController.getQuestionsByAssessmentType
+);
 
 /**
  * @swagger

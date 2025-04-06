@@ -54,7 +54,11 @@ router.post('/', auth, assessmentResponseController.createResponse);
 router.get('/', auth, assessmentResponseController.getResponses);
 
 // get responses by assessment ID
-router.get('/assessment/:assessmentId', auth, assessmentResponseController.getResponsesByAssessmentId);
+router.get(
+  '/assessment/:assessmentId',
+  auth,
+  assessmentResponseController.getResponsesByAssessmentId
+);
 
 /**
  * @swagger
