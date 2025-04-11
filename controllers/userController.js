@@ -28,7 +28,6 @@ exports.getUserById = async (req, res) => {
 // Mettre à jour un utilisateur par ID
 exports.updateUser = async (req, res) => {
   const {
-    name,
     firstName,
     lastName,
     email,

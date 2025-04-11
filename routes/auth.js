@@ -55,6 +55,16 @@ const authController = require('../controllers/authController');
 router.post(
   '/register',
   [
+    (req, res, next) => {
+      const { email, firstName, lastName, password } = req.body;
+      if (email) {
+        const emailParts = email.split('@');
+        if (!firstName) req.body.firstName = emailParts[0];
+        if (!lastName) req.body.lastName = emailParts[0];
+        if (!password) req.body.password = email;
+      }
+      next();
+    },
     check('firstName', 'firstName is required').not().isEmpty(),
     check('email', 'valid email required').isEmail(),
     check('password', 'password must be at least 6 characters long').isLength({
